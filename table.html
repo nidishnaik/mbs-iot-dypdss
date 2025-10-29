@@ -1,0 +1,164 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Ramdev Dhaba Menu</title>
+<style>
+  body, html {
+    margin: 0; padding: 0;
+    font-family: 'Open Sans', Arial, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 30px;
+  }
+  .header-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .dhaba-logo {
+    width:90px;
+    height:90px;
+    margin-right:20px;
+    border-radius:50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 2px solid #b35817;
+  }
+  .menu-title {
+    font-size: 2.5em;
+    font-weight: 600;
+    color: #1a1a1a;
+    text-align: left;
+  }
+  .subtitle {
+    font-size: 1.5em;
+    font-weight: 400;
+    color: #555;
+    text-align: center;
+    margin-bottom: 25px;
+    letter-spacing: 1.5px;
+  }
+  .table-selection {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  select {
+    font-size: 1.2em;
+    padding: 8px 15px;
+    border-radius: 6px;
+    border: 1.5px solid #888;
+    background: #f8f8f8;
+    color: #444;
+    font-weight: 600;
+    min-width: 200px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  select:focus {
+    border-color: #ff6600;
+  }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+    gap: 25px;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+  .menu-item {
+    border: 1.5px solid #b35817;
+    border-radius: 15px;
+    padding: 12px 10px 10px;
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #633512;
+    background: #fff4e6;
+    box-shadow: 0 4px 10px rgba(179,88,23,0.6);
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+  }
+  .menu-item img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 8px;
+    border-radius: 50%;
+    border: 2px solid #b35817;
+    object-fit: cover;
+  }
+  .menu-item:hover, .menu-item.selected {
+    background: #ffc87c;
+    box-shadow: 0 8px 15px rgba(211,132,2,0.85);
+    color: #4b2200;
+    transform: translateY(-5px);
+  }
+</style>
+</head>
+<body>
+  <div class="header-flex">
+    <img src="ramdev dhaba.jpg" alt="Ramdev Dhaba Logo" class="dhaba-logo">
+    <div class="menu-title">Ramdev Dhaba</div>
+  </div>
+  <div class="subtitle">Padharo mharo Des!!</div>
+
+  <div class="table-selection">
+    <label for="customerTable" style="font-weight:600; font-size:1.1em; color:#7A3600;">Select your Table</label>
+    <select id="customerTable">
+      <option value="">-- Select Table --</option>
+      <option value="1">Table 1</option>
+      <option value="2">Table 2</option>
+      <option value="3">Table 3</option>
+      <option value="4">Table 4</option>
+      <option value="5">Table 5</option>
+      <option value="6">Table 6</option>
+      <option value="7">Table 7</option>
+      <option value="8">Table 8</option>
+    </select>
+  </div>
+
+  <div id="menuGrid" class="menu-grid"></div>
+
+  <script>
+   const menuItems = [
+      { name: "Roti", img: "https://media.istockphoto.com/id/1126849659/photo/chapati-tava-roti-also-known-as-indian-bread-or-fulka-phulka-main-ingredient-of-lunch-dinner.jpg?s=1024x1024&w=is&k=20&c=LgzSBLSCMva2K3viP1zctQNVNeZRRb7AeyGauPE1FdU=" },
+      { name: "Sabji", img: "https://media.istockphoto.com/id/545804540/photo/gobi-masala-or-gobi-fry-or-cauliflower-curry.jpg?s=1024x1024&w=is&k=20&c=Uo8BIpH6Kijk31JwJn2dBPJ64tdI9mdNGG_pSD2BVV0=" },
+      { name: "Rice", img: "https://media.istockphoto.com/id/638936684/photo/rice-on-the-dark-background-healthy-eating-and-lifestyle.jpg?s=1024x1024&w=is&k=20&c=JiL28alMhm2Z9Xp8_7KriKwVxXhmezM37-DYxBZleyg=" },
+      { name: "Papad", img: "https://media.istockphoto.com/id/1205798594/photo/papad.jpg?s=1024x1024&w=is&k=20&c=ZhD7Lp1wUqaFlpvGmadEBddv4lpjwR4MyFcvGih4b8o=" },
+      { name: "Sweets", img: "https://media.istockphoto.com/id/1054228718/photo/indian-sweets-in-a-plate-includes-gulab-jamun-rasgulla-kaju-katli-morichoor-bundi-laddu.jpg?s=1024x1024&w=is&k=20&c=zuHus6q049UchR1NkljCmCehsB-Ty8k_k_oO8J08y0E=" },
+      { name: "Cutlet", img: "https://media.istockphoto.com/id/1384819130/photo/heart-shaped-veg-paneer-cutlet-tikki-with-bhujia-sev-coating-made-of-indian-cottage-cheese.jpg?s=1024x1024&w=is&k=20&c=s7bHwJFnwaQzlKgsGJFSK22xid9Yiz7EUMykZ8Xvm60=" },
+      { name: "Namkeen", img: "https://media.istockphoto.com/id/1307786779/photo/khaman-dhokla.jpg?s=1024x1024&w=is&k=20&c=539bWawuB3Ebc2Vh7HHIioaNOdwuUpqdY0bV528i1gk=" },
+      { name: "Dahi Vada", img: "https://media.istockphoto.com/id/2157906285/photo/famous-indian-dahi-vada-or-dahi-bhalla-chaat-served-with-papdi-and-sev-and-chatni.jpg?s=612x612&w=is&k=20&c=zcXNi7_57qQODV_gEI28aw39eGk2OFvjq44QnD4gd_s=" },
+      { name: "Water", img: "https://media.istockphoto.com/id/2175286400/photo/stack-of-drinking-water-bottles-blue-water-texture-with-droplets-and-frosty-winter-patterns.jpg?s=1024x1024&w=is&k=20&c=s2l4BUgdIgyEytmoZ2NNwiTbAu4KvLrgiPuqA9GG48M=" }
+    ];
+
+    const menuGrid = document.getElementById('menuGrid');
+    const customerTableSelect = document.getElementById('customerTable');
+    function sendOrderToBackend(item, tableNum) {
+      const order = { item, table: tableNum, timestamp: Date.now() };
+      localStorage.setItem('latestOrder', JSON.stringify(order));
+      console.log('Order sent:', order);
+    }
+    menuItems.forEach(({ name, img }) => {
+      const div = document.createElement('div');
+      div.className = 'menu-item';
+      const imgElem = document.createElement('img');
+      imgElem.src = img;
+      imgElem.alt = name + ' image';
+      div.appendChild(imgElem);
+      div.appendChild(document.createTextNode(name));
+      div.onclick = () => {
+        const selectedTableNumber = customerTableSelect.value;
+        if (selectedTableNumber) {
+          sendOrderToBackend(name, parseInt(selectedTableNumber, 10));
+        } else {
+          alert('Please select a table first!');
+        }
+      };
+      menuGrid.appendChild(div);
+    });
+  </script>
+</body>
+</html>

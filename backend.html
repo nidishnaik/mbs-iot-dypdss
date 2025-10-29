@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Ramdev Dhaba Butler Command Centre</title>
+<style>
+body {
+ font-family: 'Open Sans', Arial, sans-serif;  margin: 30px;
+  background: linear-gradient(135deg, #f5e0c3, #d36226);
+  color: #5b2c06;
+}
+.title {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+   font-family: 'Open Sans', Arial, sans-serif;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+}
+th,
+td {
+  border: 3px solid #b35817;
+  padding: 15px;
+  text-align: left;
+  font-size: 1.2em;
+  color: #633512;
+}
+th {
+  background-color: #fff4e6;
+  font-weight: bold;
+}
+.order-cell {
+  min-width: 200px;
+  background-color: #fdebd3;
+  color: #7a3600;
+  font-weight: bold;
+}
+.clear-btn {
+  padding: 7px 18px;
+  border-radius: 6px;
+  border: 2px solid #b35817;
+  background: #fdebd3;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+  .menu-title {
+    font-size: 2em;
+    font-weight: 600;
+    color: #1a1a1a;
+    text-align: center;
+  }
+  
+    .subtitle {
+    font-size: 1em;
+    font-weight: 600;
+    color: #1a1a1a;
+    text-align: center;
+  }
+
+.dhaba-logo {
+    width:90px;
+    height:90px;
+    margin-right:20px;
+    border-radius:50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 2px solid #b35817;
+  }
+  
+.clear-btn:hover {
+  background: #ffc87c;
+  color: #4b2200;
+  box-shadow: 0 8px 15px rgba(211, 132, 2, 0.85);
+}
+table tbody tr td:first-child,
+table tbody tr td:last-child {
+  white-space: nowrap;
+  width: 1%;
+}
+</style>
+</head>
+<body>
+ 
+  <div class="header-flex">
+    <img src="ramdev dhaba.jpg" alt="Ramdev Dhaba Logo" class="dhaba-logo">
+    <div class="menu-title">Ramdev Dhaba</div>
+  </div>
+  <div class="subtitle">Ramdev Dhaba Butler Command Centre</div>
+  
+<table>
+  <thead>
+    <tr>
+      <th>Table</th>
+      <th>Orders</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Table-1</td>
+      <td><span id="order-table1" class="order-cell span"></span></td>
+      <td><button class="clear-btn" onclick="clearTableOrders(1)">Clear</button></td>
+    </tr>
+    <tr>
+      <td>Table-2</td>
+      <td><span id="order-table2" class="order-cell span"></span></td>
+      <td><button class="clear-btn" onclick="clearTableOrders(2)">Clear</button></td>
+    </tr>
+    <tr>
+      <td>Table-3</td>
+      <td><span id="order-table3" class="order-cell span"></span></td>
+      <td><button class="clear-btn" onclick="clearTableOrders(3)">Clear</button></td>
+    </tr>
+    <tr>
+      <td>Table-4</td>
+      <td><span id="order-table4" class="order-cell span"></span></td>
+      <td><button class="clear-btn" onclick="clearTableOrders(4)">Clear</button></td>
+    </tr>
+    <tr>
+      <td>Table-5</td>
+      <td><span id="order-table5" class="order-cell span"></span></td>
+      <td><button class="clear-btn" onclick="clearTableOrders(5)">Clear</button></td>
+    </tr>
+    <tr>
+      <td>Table-6</td>
+      <td><span id="order-table6" class="order-cell span"></span></td>
+      <td><button class="clear-btn" onclick="clearTableOrders(6)">Clear</button></td>
+    </tr>
+    <tr>
+      <td>Table-7</td>
+      <td><span id="order-table7" class="order-cell span"></span></td>
+      <td><button class="clear-btn" onclick="clearTableOrders(7)">Clear</button></td>
+    </tr>
+    <tr>
+      <td>Table-8</td>
+      <td><span id="order-table8" class="order-cell span"></span></td>
+      <td><button class="clear-btn" onclick="clearTableOrders(8)">Clear</button></td>
+    </tr>
+  </tbody>
+</table>
+<script>
+let tableOrders = {};
+
+function updateTableOrderDisplay(tableNumber) {
+  const orderTd = document.getElementById("order-table" + tableNumber);
+  if (orderTd) {
+    const orders = tableOrders[tableNumber] || [];
+    orderTd.textContent = orders.join(", ");
+    orderTd.style.backgroundColor = "#e8f5e8";
+    setTimeout(() => (orderTd.style.backgroundColor = "#fdebd3"), 500);
+  }
+}
+
+function clearTableOrders(tableNumber) {
+  tableOrders[tableNumber] = [];
+  updateTableOrderDisplay(tableNumber);
+}
+
+window.addEventListener("storage", (event) => {
+  if (event.key === "latestOrder") {
+    const order = JSON.parse(event.newValue);
+    const tableNum = order.table;
+    const item = order.item;
+    if (!tableOrders[tableNum]) tableOrders[tableNum] = [];
+    tableOrders[tableNum].push(item);
+    updateTableOrderDisplay(tableNum);
+  }
+});
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Ramdev Dhaba Butler Command Centre</title>
+<style>
+  body, html {
+    margin: 0; padding: 0;
+     font-family: 'Open Sans', Arial, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 30px;
+  }
+  .title {
+    font-weight: 600;
+    font-size: 2em;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #1a1a1a;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 0px 0px rgba(0,0,0,0.1);
+  }
+  th, td {
+    border: 1.5px solid #ccc;
+    padding: 14px 20px;
+    text-align: left;
+    font-size: 1.1em;
+    color: #444;
+  }
+  th {
+    background: #f9f9f9;
+    font-weight: 600;
+  }
+  .order-cell {
+    min-width: 200px;
+    background: #fff7e6;
+    color: #b35900;
+    font-weight: 600;
+  }
+  .clear-btn {
+    background: #fff3e0;
+    border: 1.5px solid #ff6600;
+    border-radius: 6px;
+    color: #e65100;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    padding: 8px 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .clear-btn:hover {
+    background: #ffcc80;
+    color: #4b2200;
+    box-shadow: 0 6px 12px rgba(255,136,0,0.5);
+  }
+  @media (max-width: 600px) {
+    table, th, td { font-size: 1em; padding: 10px 12px; }
+  }
+</style>
+</head>
+
+</html>
